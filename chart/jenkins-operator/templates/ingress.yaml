@@ -2,15 +2,15 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
  name: jenkins-ingress
- namespace: ingress-basic 
+ namespace: {{ .Values.jenkins.namespace }} 
  annotations:
   kubernetes.io/ingress.class: nginx
 spec:
  rules:
- - host: technology-dp.ah.nl 
+ - host: {{ .Values.jenkins.ingress.hostname }}
    http:
     paths:
-    - path: /jenkins
+    - path: {{ .Values.jenkins.ingress.path }}
       backend:
-       serviceName: jenkins
+       serviceName: jenkins-operator-http-jenkins
        servicePort: 80
